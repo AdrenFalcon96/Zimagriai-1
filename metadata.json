@@ -1,0 +1,6 @@
+{
+  "name": "ZimAgriAI",
+  "description": "Zimbabwe-first Agricultural AI Systems Platform connecting farmer observations, remote sensing, weather, confidence scoring, production estimation, and policy intelligence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

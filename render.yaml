@@ -1,0 +1,21 @@
+services:
+  # ZimAgriAI Web Application & Core API
+  - type: web
+    name: zimagriai-web
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: frankfurt
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zimagriai
+          property: connectionString
+      - key: RENDER_WORKER_URL
+        value: https://zimagriai.onrender.com
+      - key: GEMINI_API_KEY
+        sync: false

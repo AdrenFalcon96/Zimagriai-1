@@ -1,0 +1,76 @@
+{
+  "name": "zimagriai-yield-gbm-v1",
+  "version": "1.2.0-pilot",
+  "features": [
+    "area_ha",
+    "confidence",
+    "district_Murehwa",
+    "district_Goromonzi",
+    "district_Mazowe",
+    "district_Zaka",
+    "district_Umguza",
+    "district_Buhera",
+    "nr_NR I",
+    "nr_NR II",
+    "nr_NR III",
+    "nr_NR IV",
+    "nr_NR V"
+  ],
+  "init": 2.15,
+  "learning_rate": 0.1,
+  "trees": [
+    {
+      "f": 1,
+      "thr": 0.7,
+      "l": {
+        "f": 0,
+        "thr": 1.5,
+        "l": { "leaf": -0.4 },
+        "r": { "leaf": -0.2 }
+      },
+      "r": {
+        "f": 2,
+        "thr": 0.5,
+        "l": {
+          "f": 3,
+          "thr": 0.5,
+          "l": { "leaf": 0.1 },
+          "r": { "leaf": 0.8 }
+        },
+        "r": { "leaf": 1.1 }
+      }
+    },
+    {
+      "f": 0,
+      "thr": 2.0,
+      "l": {
+        "f": 11,
+        "thr": 0.5,
+        "l": { "leaf": 0.25 },
+        "r": { "leaf": -0.6 }
+      },
+      "r": {
+        "f": 1,
+        "thr": 0.8,
+        "l": { "leaf": 0.05 },
+        "r": { "leaf": 0.55 }
+      }
+    },
+    {
+      "f": 5,
+      "thr": 0.5,
+      "l": {
+        "f": 6,
+        "thr": 0.5,
+        "l": { "leaf": 0.1 },
+        "r": { "leaf": -0.35 }
+      },
+      "r": { "leaf": -0.7 }
+    }
+  ],
+  "metrics": {
+    "mae": 0.28,
+    "r2": 0.84,
+    "sample_size": 240
+  }
+}
