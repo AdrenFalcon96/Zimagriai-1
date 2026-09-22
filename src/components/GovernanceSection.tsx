@@ -59,90 +59,94 @@ export const GovernanceSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-6" id="section-governance">
       {/* Section Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 pb-4">
-        <div>
-          <span className="text-xs font-bold tracking-wider text-emerald-400 uppercase">
-            07 / Governance & Investor Readiness
-          </span>
-          <h2 className="font-display mt-1 text-2xl font-bold text-white sm:text-3xl">
-            Built to Survive Rigorous Policy & Audit Scrutiny
-          </h2>
-          <p className="mt-1 text-sm text-stone-400">
-            Zimbabwe agricultural intelligence cannot afford black-box opacity. Every observation,
-            prediction, and shrinkage weight retains a strict cryptographic evidence trail in PostgreSQL.
-          </p>
-        </div>
+      <div className="border-b border-[#1b2b22] pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-xs font-bold text-[#34d399] tracking-wider uppercase">
+              AGRI-SEC-07 // STATUTORY AUDIT & INFRASTRUCTURE TOPOLOGY
+            </span>
+            <span className="text-[#32493d]">•</span>
+            <span className="font-mono text-xs text-[#799083]">PostgreSQL Evidence Backbone</span>
+          </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={fetchGovernanceData}
-            disabled={isRefreshing}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-stone-700 bg-stone-800/80 px-3 py-1.5 text-xs font-semibold text-stone-200 transition hover:bg-stone-700 disabled:opacity-50"
-          >
-            <RefreshCw className={`h-3.5 w-3.5 text-emerald-400 ${isRefreshing ? "animate-spin" : ""}`} />
-            <span>Refresh Ledger</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={fetchGovernanceData}
+              disabled={isRefreshing}
+              className="inline-flex items-center gap-1.5 rounded border border-[#1b2b22] bg-[#0c1410] px-3 py-1 font-mono text-xs font-semibold text-[#c9d6cf] transition hover:bg-[#14231b] disabled:opacity-50"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 text-[#34d399] ${isRefreshing ? "animate-spin" : ""}`} />
+              <span>REFRESH AUDIT TRAIL</span>
+            </button>
 
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3 py-1 text-xs font-semibold text-emerald-400">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            <span>POLICY & EVIDENCE COMPLIANT</span>
+            <div className="inline-flex items-center gap-1.5 rounded border border-[#1e4832] bg-[#0d281a] px-2.5 py-1 font-mono text-xs font-semibold text-[#34d399]">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              <span>EVIDENCE CONJUGATE VERIFIED</span>
+            </div>
           </div>
         </div>
+
+        <h2 className="font-display mt-2 text-2xl font-bold tracking-tight text-[#f4f7f5] sm:text-3xl">
+          National Governance & Institutional Audit Architecture
+        </h2>
+        <p className="mt-1 text-sm text-[#9ab0a3] max-w-3xl leading-relaxed">
+          Operational agricultural policy requires complete verifiable traceability. Every cadastre submission, satellite corroboration signal, and empirical Bayes shrinkage weight is committed to immutable PostgreSQL audit tables.
+        </p>
       </div>
 
       {/* Live PostgreSQL Database Node Card */}
-      <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-6 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-800 pb-3">
+      <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-6 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#17251e] pb-3">
           <div className="flex items-center gap-2.5">
-            <div className="rounded-lg bg-emerald-950/80 p-2 text-emerald-400 ring-1 ring-emerald-800/50">
-              <Database className="h-5 w-5" />
+            <div className="rounded border border-[#1e4832] bg-[#0d281a] p-2 text-[#34d399]">
+              <Database className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="font-display text-base font-bold text-white flex items-center gap-2">
-                Live PostgreSQL Storage Infrastructure
-                <span className="inline-flex items-center rounded bg-emerald-950 px-2 py-0.5 text-[10px] font-bold text-emerald-400 border border-emerald-800/60">
-                  {dbStatus?.status === "connected" ? "CONNECTED" : "CONNECTING"}
+              <h3 className="font-display text-sm font-bold text-[#f4f7f5] flex items-center gap-2">
+                Relational Cadastre Backing Store (PostgreSQL)
+                <span className="inline-flex items-center rounded border border-[#1e4832] bg-[#0d281a] px-1.5 py-0.5 font-mono text-[10px] font-bold text-[#34d399]">
+                  {dbStatus?.status === "connected" ? "CLUSTER: CONNECTED" : "CLUSTER: PENDING"}
                 </span>
               </h3>
-              <p className="text-xs text-stone-400">
-                Persistent relational backing store on Render Cloud (Frankfurt region, TLS enforced)
+              <p className="font-mono text-[11px] text-[#799083]">
+                Managed PostgreSQL instance on Render Cloud (Frankfurt EU-West, TLS enforced, PostGIS enabled)
               </p>
             </div>
           </div>
 
           <div className="text-right font-mono text-xs">
-            <span className="text-stone-400">Roundtrip Latency: </span>
-            <span className="font-bold text-emerald-400">{dbStatus?.latencyMs ?? "—"} ms</span>
+            <span className="text-[#6e8577]">TCP Roundtrip: </span>
+            <span className="font-bold text-[#34d399]">{dbStatus?.latencyMs ?? "—"} ms</span>
           </div>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-4 font-mono text-xs">
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">PostgreSQL Host</span>
-            <span className="font-semibold text-stone-200 truncate block mt-0.5" title={dbStatus?.host}>
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Postgres Host</span>
+            <span className="font-semibold text-[#c9d6cf] truncate block mt-0.5" title={dbStatus?.host}>
               {dbStatus?.host || "render-postgres"}
             </span>
           </div>
 
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">Database Name</span>
-            <span className="font-semibold text-emerald-400 block mt-0.5">
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Database Catalog</span>
+            <span className="font-semibold text-[#34d399] block mt-0.5">
               {dbStatus?.database || "zimagriai"}
             </span>
           </div>
 
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">Observations In DB</span>
-            <span className="font-semibold text-teal-300 text-sm block mt-0.5">
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Committed Cadastres</span>
+            <span className="font-semibold text-[#7dd3fc] text-sm block mt-0.5">
               {dbStatus?.observationsCount ?? 0} records
             </span>
           </div>
 
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">Audit Log Entries</span>
-            <span className="font-semibold text-amber-300 text-sm block mt-0.5">
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Audit Ledger Rows</span>
+            <span className="font-semibold text-[#fbbf24] text-sm block mt-0.5">
               {dbStatus?.auditCount ?? 0} audited
             </span>
           </div>
@@ -150,132 +154,132 @@ export const GovernanceSection: React.FC = () => {
       </div>
 
       {/* Live Render Docker Worker Infrastructure Node Card */}
-      <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-6 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-800 pb-3">
+      <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-6 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#17251e] pb-3">
           <div className="flex items-center gap-2.5">
-            <div className="rounded-lg bg-sky-950/80 p-2 text-sky-400 ring-1 ring-sky-800/50">
-              <Cpu className="h-5 w-5" />
+            <div className="rounded border border-[#1e4832] bg-[#0d281a] p-2 text-[#34d399]">
+              <Cpu className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="font-display text-base font-bold text-white flex items-center gap-2">
-                Render Docker Remote Sensing Worker
+              <h3 className="font-display text-sm font-bold text-[#f4f7f5] flex items-center gap-2">
+                FastAPI Geospatial Remote-Sensing Microservice
                 <span
-                  className={`inline-flex items-center rounded px-2 py-0.5 text-[10px] font-bold border ${
+                  className={`inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] font-bold ${
                     workerStatus?.status === "online"
-                      ? "bg-sky-950 text-sky-300 border-sky-800/60"
-                      : "bg-amber-950 text-amber-300 border-amber-800/60"
+                      ? "border-[#1e4832] bg-[#0d281a] text-[#4ade80]"
+                      : "border-[#422c10] bg-[#281b0a] text-[#fbbf24]"
                   }`}
                 >
-                  {workerStatus?.status === "online" ? "HEALTHY ONLINE" : "CONNECTING / DEGRADED"}
+                  {workerStatus?.status === "online" ? "WORKER: OPERATIONAL" : "WORKER: COLD START"}
                 </span>
               </h3>
-              <p className="text-xs text-stone-400">
-                FastAPI microservice container deployed on Render Cloud running Uvicorn + Python runtime
+              <p className="font-mono text-[11px] text-[#799083]">
+                Containerized Python Uvicorn engine on Render Cloud processing asynchronous multi-spectral tiles
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3 font-mono text-xs">
             <div>
-              <span className="text-stone-400">Ping: </span>
-              <span className="font-bold text-sky-400">{workerStatus?.latencyMs ?? "—"} ms</span>
+              <span className="text-[#6e8577]">Ping: </span>
+              <span className="font-bold text-[#34d399]">{workerStatus?.latencyMs ?? "—"} ms</span>
             </div>
             <a
               href="https://zimagriai.onrender.com/docs"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 rounded bg-stone-800 px-2 py-1 text-[11px] font-semibold text-stone-200 hover:bg-stone-700 transition"
+              className="inline-flex items-center gap-1 rounded border border-[#1b2b22] bg-[#0f1914] px-2 py-1 font-mono text-[11px] font-semibold text-[#c9d6cf] hover:bg-[#14231b] transition"
             >
-              <span>Swagger Docs</span>
-              <ExternalLink className="h-3 w-3 text-stone-400" />
+              <span>OpenAPI Specification</span>
+              <ExternalLink className="h-3 w-3 text-[#6e8577]" />
             </a>
           </div>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-4 font-mono text-xs">
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">Worker Endpoint</span>
-            <span className="font-semibold text-sky-300 truncate block mt-0.5" title={workerStatus?.url}>
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Service Ingress</span>
+            <span className="font-semibold text-[#7dd3fc] truncate block mt-0.5" title={workerStatus?.url}>
               zimagriai.onrender.com
             </span>
           </div>
 
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">Container Runtime</span>
-            <span className="font-semibold text-stone-200 block mt-0.5">
-              Docker / Python 3 / Uvicorn
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Execution Stack</span>
+            <span className="font-semibold text-[#c9d6cf] block mt-0.5">
+              Docker / Python 3.11 / Uvicorn
             </span>
           </div>
 
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">Active Service Title</span>
-            <span className="font-semibold text-emerald-400 block mt-0.5 truncate">
-              {workerStatus?.service || "Remote Sensing Worker"}
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Daemon Function</span>
+            <span className="font-semibold text-[#34d399] block mt-0.5 truncate">
+              {workerStatus?.service || "Geospatial Remote-Sensing Ingestion"}
             </span>
           </div>
 
-          <div className="rounded-lg border border-stone-800 bg-stone-950/70 p-3">
-            <span className="text-stone-500 block text-[11px]">Earth Engine State</span>
+          <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-3">
+            <span className="text-[#6e8577] block text-[10px] uppercase">Earth Engine Auth</span>
             <span
               className={`font-semibold block mt-0.5 ${
-                workerStatus?.details?.earth_engine_configured ? "text-emerald-400" : "text-amber-400"
+                workerStatus?.details?.earth_engine_configured ? "text-[#34d399]" : "text-[#fbbf24]"
               }`}
             >
               {workerStatus?.details?.earth_engine_configured
-                ? "Configured (Ready)"
-                : "Awaiting GEE Service Account"}
+                ? "Active (Pre-Authenticated)"
+                : "Awaiting GEE Key"}
             </span>
           </div>
         </div>
 
-        <div className="rounded-lg border border-stone-800/80 bg-stone-950/80 p-3.5 text-xs text-stone-300 space-y-1.5 font-mono">
-          <div className="flex items-center gap-2 text-stone-400 font-bold">
-            <Radio className="h-3.5 w-3.5 text-sky-400" />
-            <span>Exposed Container Endpoints & Workflows:</span>
+        <div className="rounded border border-[#1b2b22] bg-[#09110d] p-3.5 text-xs text-[#c9d6cf] space-y-1.5 font-mono">
+          <div className="flex items-center gap-2 text-[#8ea396] font-bold">
+            <Radio className="h-3.5 w-3.5 text-[#34d399]" />
+            <span>Active Microservice Ingress Endpoints:</span>
           </div>
-          <div className="grid gap-1 sm:grid-cols-2 text-[11px] text-stone-400">
-            <div>• <code className="text-sky-300">POST /signals</code>: Multi-spectral Sentinel-2 & CHIRPS ingestion</div>
-            <div>• <code className="text-sky-300">POST /ussd</code>: Offline mobile telecom USSD session handler</div>
+          <div className="grid gap-1 sm:grid-cols-2 text-[11px] text-[#799083]">
+            <div>• <code className="text-[#34d399]">POST /signals</code>: Automated Sentinel-2 NDVI & CHIRPS ingestion pipeline</div>
+            <div>• <code className="text-[#34d399]">POST /ussd</code>: Offline mobile telco session gateway (Econet / NetOne)</div>
           </div>
         </div>
       </div>
 
       {/* Stakeholder Summary View directly from Postgres */}
       {stakeholderSummary.length > 0 && (
-        <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-6 space-y-4">
-          <div className="flex items-center justify-between border-b border-stone-800 pb-3">
+        <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-[#17251e] pb-3">
             <div className="flex items-center gap-2">
-              <Scale className="h-4 w-4 text-emerald-400" />
-              <h3 className="font-display text-base font-bold text-white">
+              <Scale className="h-4 w-4 text-[#34d399]" />
+              <h3 className="font-display text-sm font-bold text-[#f4f7f5]">
                 PostgreSQL Materialized View: stakeholder_district_summary
               </h3>
             </div>
-            <span className="text-xs font-mono text-stone-500">Live Database View</span>
+            <span className="font-mono text-xs text-[#6e8577]">Live Aggregated Materialization</span>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-stone-800 text-stone-400 font-semibold font-mono">
-                  <th className="py-2.5 px-3">District</th>
-                  <th className="py-2.5 px-3 text-right">Observations</th>
-                  <th className="py-2.5 px-3 text-right">Mean Confidence</th>
-                  <th className="py-2.5 px-3 text-right">Reported Production</th>
-                  <th className="py-2.5 px-3 text-right">Confidence-Weighted</th>
+                <tr className="border-b border-[#1b2b22] bg-[#0f1914] font-mono text-[11px] text-[#8ea396] uppercase tracking-wider">
+                  <th className="py-2 px-3">District</th>
+                  <th className="py-2 px-3 text-right">Cadastre Entries</th>
+                  <th className="py-2 px-3 text-right">Mean Confidence</th>
+                  <th className="py-2 px-3 text-right">Raw Reported Sum</th>
+                  <th className="py-2 px-3 text-right">Bayesian Shrinkage Sum</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-800/50 font-mono">
+              <tbody className="divide-y divide-[#17251e] font-mono text-[#c9d6cf]">
                 {stakeholderSummary.map((row) => (
-                  <tr key={row.district} className="hover:bg-stone-800/30">
-                    <td className="py-3 px-3 font-semibold text-white">{row.district}</td>
-                    <td className="py-3 px-3 text-right text-stone-300">{row.observations}</td>
-                    <td className="py-3 px-3 text-right text-teal-300">
+                  <tr key={row.district} className="hover:bg-[#111e17] transition">
+                    <td className="py-3 px-3 font-semibold text-[#f4f7f5]">{row.district}</td>
+                    <td className="py-3 px-3 text-right text-[#8fa397]">{row.observations}</td>
+                    <td className="py-3 px-3 text-right text-[#7dd3fc]">
                       {(row.mean_confidence * 100).toFixed(1)}%
                     </td>
-                    <td className="py-3 px-3 text-right text-stone-300">
+                    <td className="py-3 px-3 text-right text-[#8fa397]">
                       {Number(row.reported_production_t).toFixed(2)} t
                     </td>
-                    <td className="py-3 px-3 text-right font-bold text-emerald-400">
+                    <td className="py-3 px-3 text-right font-bold text-[#34d399]">
                       {Number(row.confidence_weighted_production_t).toFixed(2)} t
                     </td>
                   </tr>
@@ -287,56 +291,55 @@ export const GovernanceSection: React.FC = () => {
       )}
 
       {/* Live Immutable Audit Log from PostgreSQL */}
-      <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-6 space-y-4">
-        <div className="flex items-center justify-between border-b border-stone-800 pb-3">
+      <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-[#17251e] pb-3">
           <div className="flex items-center gap-2">
-            <FileCheck className="h-4 w-4 text-teal-400" />
-            <h3 className="font-display text-base font-bold text-white">
-              Immutable PostgreSQL Audit Log (`audit_log`)
+            <FileCheck className="h-4 w-4 text-[#34d399]" />
+            <h3 className="font-display text-sm font-bold text-[#f4f7f5]">
+              Immutable PostgreSQL Audit Ledger (`audit_log`)
             </h3>
           </div>
-          <span className="text-xs font-mono text-stone-500">Atomic Event Ledger</span>
+          <span className="font-mono text-xs text-[#6e8577]">Cryptographic Append-Only Store</span>
         </div>
 
-        <p className="text-xs text-stone-400">
-          Every field observation write triggers an atomic transaction creating an immutable audit trail entry
-          recording the actor, entity UUID, action, and payload metadata.
+        <p className="text-xs text-[#8ca094] leading-relaxed">
+          Every field observation write triggers an atomic transaction creating an immutable audit trail entry recording the actor, entity UUID, action, and payload metadata.
         </p>
 
         {auditLogs.length === 0 ? (
-          <div className="p-4 text-center text-xs text-stone-500 font-mono">
+          <div className="p-4 text-center text-xs text-[#6e8577] font-mono border border-dashed border-[#1b2b22] bg-[#09110d] rounded">
             No audit records found in PostgreSQL yet.
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-stone-800 text-stone-400 font-semibold font-mono">
-                  <th className="py-2 px-3">Log ID</th>
+                <tr className="border-b border-[#1b2b22] bg-[#0f1914] font-mono text-[11px] text-[#8ea396] uppercase tracking-wider">
+                  <th className="py-2 px-3">Log Sequence</th>
                   <th className="py-2 px-3">Action</th>
-                  <th className="py-2 px-3">Entity</th>
+                  <th className="py-2 px-3">Entity Domain</th>
                   <th className="py-2 px-3">Entity UUID</th>
                   <th className="py-2 px-3">Payload Metadata</th>
-                  <th className="py-2 px-3 text-right">Timestamp</th>
+                  <th className="py-2 px-3 text-right">Commit Timestamp</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-800/50 font-mono text-[11px]">
+              <tbody className="divide-y divide-[#17251e] font-mono text-[11px] text-[#c9d6cf]">
                 {auditLogs.slice(0, 8).map((log) => (
-                  <tr key={log.id} className="hover:bg-stone-800/30">
-                    <td className="py-2.5 px-3 text-stone-500">#{log.id}</td>
+                  <tr key={log.id} className="hover:bg-[#111e17] transition">
+                    <td className="py-2.5 px-3 text-[#6e8577]">#{log.id}</td>
                     <td className="py-2.5 px-3">
-                      <span className="rounded bg-emerald-950/80 px-1.5 py-0.5 text-emerald-400 border border-emerald-800/50 uppercase font-bold text-[10px]">
+                      <span className="rounded border border-[#1e4832] bg-[#0d281a] px-1.5 py-0.5 text-[#34d399] uppercase font-bold text-[10px]">
                         {log.action}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 text-stone-300">{log.entity_type}</td>
-                    <td className="py-2.5 px-3 text-stone-400 truncate max-w-[120px]" title={log.entity_id || ""}>
+                    <td className="py-2.5 px-3 text-[#8fa397]">{log.entity_type}</td>
+                    <td className="py-2.5 px-3 text-[#6e8577] truncate max-w-[120px]" title={log.entity_id || ""}>
                       {log.entity_id ? log.entity_id.slice(0, 8) + "..." : "—"}
                     </td>
-                    <td className="py-2.5 px-3 text-stone-300 max-w-[280px] truncate">
+                    <td className="py-2.5 px-3 text-[#8fa397] max-w-[280px] truncate">
                       {JSON.stringify(log.metadata)}
                     </td>
-                    <td className="py-2.5 px-3 text-right text-stone-500">
+                    <td className="py-2.5 px-3 text-right text-[#6e8577]">
                       {new Date(log.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
                     </td>
                   </tr>
@@ -349,59 +352,53 @@ export const GovernanceSection: React.FC = () => {
 
       {/* 3 Governance Pillars */}
       <div className="grid gap-4 sm:grid-cols-3">
-        <article className="rounded-xl border border-stone-800 bg-stone-900/60 p-5">
-          <div className="mb-3 inline-flex rounded-lg bg-emerald-950/60 p-2 text-emerald-400 ring-1 ring-emerald-800/40">
-            <FileCheck className="h-5 w-5" />
+        <article className="rounded border border-[#1b2b22] bg-[#0c1410] p-5">
+          <div className="mb-3 inline-flex rounded border border-[#1e4832] bg-[#0d281a] p-2 text-[#34d399]">
+            <FileCheck className="h-4 w-4" />
           </div>
-          <h3 className="font-display text-base font-bold text-white">Traceability & Audit Path</h3>
-          <p className="mt-2 text-xs leading-relaxed text-stone-400">
-            Every operational observation recorded via web or USSD retains its submitter reference,
-            timestamp, raw values, and corroborated evidence signals in PostgreSQL. No arbitrary manual overwrites are permitted.
+          <h3 className="font-display text-sm font-bold text-[#f4f7f5]">Traceability & Audit Path</h3>
+          <p className="mt-2 text-xs leading-relaxed text-[#8ca094]">
+            Every operational observation recorded via web or USSD retains its submitter reference, timestamp, raw values, and corroborated evidence signals in PostgreSQL. No arbitrary manual overwrites are permitted.
           </p>
         </article>
 
-        <article className="rounded-xl border border-stone-800 bg-stone-900/60 p-5">
-          <div className="mb-3 inline-flex rounded-lg bg-teal-950/60 p-2 text-teal-400 ring-1 ring-teal-800/40">
-            <Lock className="h-5 w-5" />
+        <article className="rounded border border-[#1b2b22] bg-[#0c1410] p-5">
+          <div className="mb-3 inline-flex rounded border border-[#1e4832] bg-[#0d281a] p-2 text-[#34d399]">
+            <Lock className="h-4 w-4" />
           </div>
-          <h3 className="font-display text-base font-bold text-white">Data Sovereignty & Security</h3>
-          <p className="mt-2 text-xs leading-relaxed text-stone-400">
-            Smallholder identities are pseudonymized at capture. Sensitive database keys, Earth Engine
-            service credentials, and third-party secrets strictly remain server-side behind encrypted proxies.
+          <h3 className="font-display text-sm font-bold text-[#f4f7f5]">Data Sovereignty & Security</h3>
+          <p className="mt-2 text-xs leading-relaxed text-[#8ca094]">
+            Smallholder identities are pseudonymized at capture. Sensitive database keys, Earth Engine service credentials, and third-party secrets strictly remain server-side behind encrypted proxies.
           </p>
         </article>
 
-        <article className="rounded-xl border border-stone-800 bg-stone-900/60 p-5">
-          <div className="mb-3 inline-flex rounded-lg bg-amber-950/60 p-2 text-amber-400 ring-1 ring-amber-800/40">
-            <Scale className="h-5 w-5" />
+        <article className="rounded border border-[#1b2b22] bg-[#0c1410] p-5">
+          <div className="mb-3 inline-flex rounded border border-[#1e4832] bg-[#0d281a] p-2 text-[#34d399]">
+            <Scale className="h-4 w-4" />
           </div>
-          <h3 className="font-display text-base font-bold text-white">Policy Before Product</h3>
-          <p className="mt-2 text-xs leading-relaxed text-stone-400">
-            The same evidence layer serves the Ministry of Lands, GMB strategic reserves, agricultural finance,
-            and smallholder farmer unions without building incompatible point solutions or vendor lock-in.
+          <h3 className="font-display text-sm font-bold text-[#f4f7f5]">Policy Before Product</h3>
+          <p className="mt-2 text-xs leading-relaxed text-[#8ca094]">
+            The same evidence layer serves the Ministry of Agriculture, Mechanisation and Water Resources Development, GMB strategic reserves, agricultural finance, and smallholder farmer unions without building incompatible point solutions or vendor lock-in.
           </p>
         </article>
       </div>
 
       {/* Truth in AI & Calibration Notice */}
-      <div className="rounded-xl border border-stone-800 bg-stone-900/50 p-6 space-y-4">
+      <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-6 space-y-4">
         <div className="flex items-center gap-2">
-          <AlertOctagon className="h-5 w-5 text-amber-400" />
-          <h3 className="font-display text-base font-bold text-white">
-            Calibration Disclosure & Baseline Model Card
+          <AlertOctagon className="h-4 w-4 text-[#fbbf24]" />
+          <h3 className="font-display text-sm font-bold text-[#f4f7f5]">
+            Calibration Disclosure & Empirical Baseline Model Card
           </h3>
         </div>
 
-        <div className="space-y-3 text-xs text-stone-300 leading-relaxed">
+        <div className="space-y-3 text-xs text-[#8ca094] leading-relaxed">
           <p>
-            The platform explicitly distinguishes between <strong className="text-emerald-400">live telemetry</strong> (such as
-            NASA POWER 7-day point reanalysis), <strong className="text-teal-300">provider-backed signals</strong> (requiring Earth
-            Engine worker deployment), and <strong className="text-amber-400">calibration-required analytics</strong> (requiring
-            local agronomic field trials before operational credit underwriting).
+            The platform explicitly distinguishes between <strong className="text-[#34d399]">live telemetry</strong> (such as NASA POWER 7-day point reanalysis), <strong className="text-[#7dd3fc]">provider-backed signals</strong> (requiring Earth Engine worker deployment), and <strong className="text-[#fbbf24]">calibration-required analytics</strong> (requiring local agronomic field trials before operational credit underwriting).
           </p>
 
-          <div className="rounded-lg bg-stone-950 p-4 border border-stone-800 font-mono text-[11px] space-y-1">
-            <div className="text-stone-400 font-semibold mb-1">Baseline Model Card Specifications:</div>
+          <div className="rounded border border-[#1b2b22] bg-[#09110d] p-4 font-mono text-[11px] space-y-1 text-[#a1b8ab]">
+            <div className="text-[#f4f7f5] font-semibold mb-1">Baseline Model Card Specifications:</div>
             <div>• Relational Database: PostgreSQL on Render Cloud (Frankfurt cluster, PostGIS enabled)</div>
             <div>• Architecture: 25-Tree Gradient-Boosted Decision Tree Ensemble</div>
             <div>• Training Pilot: 13,600 observations across Murehwa (NR II), Zaka (NR IV), and Umguza (NR IV)</div>
@@ -409,10 +406,8 @@ export const GovernanceSection: React.FC = () => {
             <div>• Shrinkage Mechanism: Empirical Bayes with normal-normal hierarchical conjugate prior</div>
           </div>
 
-          <p className="text-stone-400 text-[11px]">
-            Notice: These metrics demonstrate reproducible pipeline architecture, not nationwide coverage.
-            Operational deployment for national grain purchases or crop insurance requires continuous calibration
-            against verified multi-district field trial harvests.
+          <p className="text-[#6e8577] text-[11px]">
+            Notice: These metrics demonstrate reproducible pipeline architecture, not nationwide coverage. Operational deployment for national grain purchases or crop insurance requires continuous calibration against verified multi-district field trial harvests.
           </p>
         </div>
       </div>

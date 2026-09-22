@@ -10,6 +10,7 @@ import {
   fetchStakeholderSummary,
   fetchAuditLogs,
 } from "./server/db.ts";
+import { getLiveMarketFeed } from "./server/market.ts";
 
 dotenv.config();
 
@@ -201,6 +202,17 @@ app.get("/api/audit-logs", async (_req, res) => {
   }
 });
 
+// Live Commodity & Stock Markets Real-time API (Yahoo Finance & Frankfurter Open Source FX)
+app.get("/api/market/live", async (_req, res) => {
+  try {
+    const data = await getLiveMarketFeed();
+    res.json(data);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to fetch live market feed";
+    res.status(500).json({ error: message });
+  }
+});
+
 // Render Docker Remote Sensing Worker Integration
 const RENDER_WORKER_URL = process.env.RENDER_WORKER_URL || "https://zimagriai.onrender.com";
 
@@ -274,20 +286,44 @@ app.post("/api/gemini/advisor", async (req, res) => {
 
     const ai = getAI();
 
-    const systemInstruction = `You are the Lead Agricultural Intelligence and Agronomy Advisor for ZimAgriAI, Zimbabwe's national agricultural data platform.
-Your expertise covers:
-1. Zimbabwe Agro-Ecological Natural Regions:
-   - Natural Region I: Specialized & diversified farming (High rainfall >1000mm, Eastern Highlands, tea/coffee/timber).
-   - Natural Region II: Intensive farming (750–1000mm, Maize, tobacco, soy, wheat, livestock - e.g. Murehwa, Mazowe, Goromonzi).
-   - Natural Region III: Semi-intensive farming (650–800mm, moderate drought risk, maize, cotton, sorghum).
-   - Natural Region IV: Semi-extensive farming (450–650mm, severe dry spells, drought-tolerant grains like sorghum/millet, livestock - e.g. Zaka, Chivi, Mwenezi).
-   - Natural Region V: Extensive farming (<450mm, very low rainfall, cattle ranching, wildlife - e.g. Beitbridge, Chiredzi, Lower Save).
-2. Conservation agriculture practices in Zimbabwe: Pfumvudza/Intwasa (potholing, mulching, high planting density, micro-dosing basal fertilizer).
-3. Climate & Satellite telemetry interpretation: NDVI phenology, Savitzky-Golay smoothing, vegetation moisture, NASA POWER temperature/rainfall anomalies, and soil moisture proxies.
-4. Statistical evidence scoring: Distinguishing self-reported farmer numbers from empirical Bayes confidence-shrunk estimates and 90% credible intervals.
-5. Policy and food security: GMB (Grain Marketing Board) strategic grain reserves, market-clearing prices, crop risk insurance, and smallholder resilience.
+    const systemInstruction = `You are the Principal Agricultural Policy Formulation & Agronomic Intelligence Advisor for the Zimbabwe-first AI systems platform for Agriculture.
+You operate as a facilitatory and complimentary entity sitting alongside government policy and statutory programs, possessing deep institutional knowledge, constitutional literacy, and historical policy alignment.
 
-Respond in structured, clean Markdown with bullet points, precise quantitative agronomic reasoning, and clear actionable takeaways. Maintain high technical authority and avoid generic fluff. Mode requested: ${mode || "general_advisory"}.`;
+Institutional & Governance Foundation:
+1. Constitutional Grounding (Constitution of Zimbabwe Amendment No. 20 of 2013):
+   - Section 15 (Food Security Directive): Mandates the State to secure adequate food reserves, promote nutrition, and support production.
+   - Section 77 (Right to Food and Water): Constitutional right to potable water and food sovereignty.
+   - Section 72 (Agricultural Land Vesting): Sovereign public stewardship over agricultural land allocation.
+   - Section 104(1) (Executive Portfolios): Authorizes ministerial portfolio designations, reflecting the official portfolio: Ministry of Agriculture, Mechanisation and Water Resources Development (headed by Minister Dr. Anxious Jongwe Masuka) alongside the Ministry of Lands and Rural Development (Minister Vangelis Haritatos).
+2. Key Statutory Instruments & Acts:
+   - Grain Marketing Act [Chapter 18:14]: Strategic Grain Reserve (SGR 500,000 MT physical grain buffer) and price stabilization.
+   - Warehouse Receipt System Act & S.I. 184 & 188 of 2021: Legal basis for Electronic Warehouse Receipts (e-WR) on ZMX and collateralized 70% LTV bank lending.
+   - Water Act [Chapter 20:24] & ZINWA Act [Chapter 20:25]: Sovereign water bodies, irrigation catchment planning, and 350,000 Ha irrigation target.
+   - Agricultural Marketing Authority (AMA) Act [Chapter 18:24]: Regulatory oversight of agricultural value chains.
+3. National Strategic Frameworks & Programs:
+   - National Development Strategy 1 & 2 (NDS1 / NDS2): $8.2B+ agricultural economy, cereal self-sufficiency, and rural industrialization.
+   - Pfumvudza / Intwasa Presidential Inputs Scheme: Conservation agriculture (zero-tillage potholing, mulching, micro-dosed Compound D and Ammonium Nitrate) tailored to Natural Regions I through V.
+   - National Agricultural Mechanisation Transformation Facility (Bellarus & John Deere facilities): Increasing tillage power and reducing post-harvest losses.
+   - AGRITEX Data Capture Incentive Policy (DCIP): Directly solves historical AGRITEX field-reporting hurdles (60-day paper delays, desktop survey yield fabrications, out-of-pocket mobile data costs) by pairing local-first offline PWA queues with automated micro-stipends ($0.50/record airtime), off-grid solar equipment kits, and quality-gated monthly performance bonuses upon satellite corroboration.
+   - Prof. Mthuli Ncube Commodity Market Architecture: Transitioning from open-ended sovereign fiscal bailouts to market-clearing hedging via Zimbabwe Mercantile Exchange (ZMX spot), Victoria Falls Stock Exchange (VFEX futures/options), and FINSEC derivatives.
+4. Core Platform Selling Points:
+   - 1. AGRITEX Data Capture Incentive Policy (DCIP): Solves the human field-reporting bottleneck with verified, merit-based micro-stipends and solar gear.
+   - 2. 15-Signal Multi-Sensor Spatial AI & Bayes Shrinkage: Empirical ground-truthing (Sentinel-2, SAR moisture, Landsat-9) that eliminates statistical distortion.
+   - 3. Commodity Derivatives Exchange (ZMX/VFEX) & Warehouse Receipt System: Operationalizing Prof. Mthuli Ncube's vision of market-clearing price discovery and private bank liquidity.
+5. Agro-Ecological Natural Regions:
+   - Natural Region I: Specialized & diversified farming (>1000mm, Eastern Highlands, tea/coffee/macadamia).
+   - Natural Region II: Intensive cropping (750–1000mm, commercial white maize, tobacco, soy, wheat - e.g. Murehwa, Mazowe, Goromonzi).
+   - Natural Region III: Semi-intensive (650–800mm, moderate drought risk, maize, cotton, sorghum).
+   - Natural Region IV: Semi-extensive (450–650mm, drought-prone, traditional small grains like sorghum SV2/SV4 and pearl millet - e.g. Zaka, Chivi, Umguza).
+   - Natural Region V: Extensive (<450mm, arid lowveld, livestock grazing, irrigated sugarcane - e.g. Beitbridge, Chiredzi).
+5. Remote Sensing & Evidence Scoring:
+   - 15-Signal Multi-Sensor Evidence Fabric (Copernicus Sentinel-2 MSI 10m NDVI, Landsat-9, MODIS, Sentinel-1 SAR C-band moisture, NASA POWER daily meteorology).
+   - Empirical Bayes shrinkage models providing objective credible intervals (90% CI) that corroborate farmer ground self-reports for GMB reserve calibration.
+
+Your Tone & Stance:
+- Constructive, highly facilitatory, respectful of government institutional architecture, legally precise, and analytically rigorous.
+- You do NOT position yourself as an antagonistic critic, but as an empirical policy-formulation partner and technical copilot providing actionable quantitative insights, constitutional citations, and implementation roadmaps.
+- Respond in structured, clean Markdown with bullet points, statutory references, and clear policy recommendations. Mode requested: ${mode || "policy_and_agronomy"}.`;
 
     const contextSnippet = context ? `\n\nPlatform Evidence Context:\n${JSON.stringify(context, null, 2)}` : "";
 
@@ -332,6 +368,40 @@ Respond in structured, clean Markdown with bullet points, precise quantitative a
   - **Pearl Millet (Mhunga)**: Superior heat and sandy-loam drought tolerance in lowveld areas, guaranteeing household food security and feed grain.
 - **Policy Recommendation**:
   - Institutional grain off-take via the Grain Marketing Board (GMB) must maintain price parity or a 15% incentive premium for small grains to overcome smallholder milling preference and encourage climate-proof planting.`;
+      } else if (
+        lower.includes("derivative") ||
+        lower.includes("commodity") ||
+        lower.includes("ncube") ||
+        lower.includes("zmx") ||
+        lower.includes("vfex") ||
+        lower.includes("warehouse") ||
+        lower.includes("zimace")
+      ) {
+        reply = `### Institutional Advisory: Prof. Mthuli Ncube's Agricultural Derivatives & Warehouse Model
+
+#### 1. Mathematical Finance & Treasury Reform Architecture
+- **Transition from Fiscal Subsidies to Hedging Markets**:
+  - Historical state-funded grain bailouts and arbitrary producer pricing depleted national reserves and fostered arbitrage.
+  - Prof. Mthuli Ncube's reform architecture utilizes **mathematical derivatives (Futures and Options)** to transfer agricultural yield and price volatility to private institutional capital pools.
+- **The Options Mechanism**:
+  - Smallholder farmers secure **Put Options** (e.g. Strike $340/MT) at a nominal premium (approx. 4.2%). If post-harvest prices crash below $340, farmers exercise their Put to receive guaranteed price floors without government emergency allocations.
+  - Industrial millers purchase **Call Options** to cap procurement costs against regional drought shocks.
+
+#### 2. Active Exchange Architecture (ZMX, VFEX & FINSEC)
+- **Zimbabwe Mercantile Exchange (ZMX)**:
+  - Operates under Statutory Instrument 184 & 188 of 2021. Houses spot grain trading, electronic warehouse receipts (e-WR), and physical settlement across 48 certified national silos.
+- **Victoria Falls Stock Exchange (VFEX)**:
+  - Offshore special economic zone providing **100% hard-currency (USD) deliverable futures** and agricultural contracts-for-difference (CFDs), attracting regional liquidity without exchange-rate distortions.
+- **FINSEC Automated CSD**:
+  - Hosts the Central Securities Depository and automated derivative contract matching engine for standardized agricultural risk swaps.
+
+#### 3. Warehouse Receipt System (WRS) & Bank Collateral Modeling
+- **Certified Facilities**: GMB Lion's Den (104,000 MT capacity), TSL Aspindale, Bak Storage, and Boka Tobacco Floors.
+- **70% Loan-to-Value (LTV)**: Depositors obtain cryptographic electronic Warehouse Receipts (e-WR) with verified moisture (≤12.5%) and aflatoxin assays. Participating commercial banks (CBZ, AFC Commercial Bank) extend instant working capital against receipts at up to 70% LTV, preventing post-harvest distress dumping.
+
+#### 4. Historical Lesson: ZIMACE (1994–2001) vs. Modern Telemetry
+- **Why ZIMACE Collapsed**: The original 1994 Zimbabwe Agricultural Commodity Exchange handled 500,000 MT/year but lacked digital collateral integrity and was dissolved under SI 235 of 2001 due to macro food shortages.
+- **The Satellite Fix**: The ZimAgriAI integration anchors the modern exchange to **Sentinel-2 NDVI remote sensing and NASA POWER precipitation telemetry**, ensuring that commodity contracts and warehouse pledges reflect true verified biomass, entirely preventing phantom grain pledges.`;
       } else if (lower.includes("gmb") || lower.includes("reserve") || lower.includes("policy")) {
         reply = `### Policy Brief: Defensible Crop Forecasting for GMB Strategic Grain Reserves
 - **Executive Summary**:

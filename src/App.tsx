@@ -12,6 +12,7 @@ import { FieldCaptureSection } from "./components/FieldCaptureSection";
 import { WeatherTelemetrySection } from "./components/WeatherTelemetrySection";
 import { AIAdvisorSection } from "./components/AIAdvisorSection";
 import { GovernanceSection } from "./components/GovernanceSection";
+import { CommodityExchangeSection } from "./components/CommodityExchangeSection";
 import { Loader2, AlertCircle } from "lucide-react";
 
 const OFFLINE_QUEUE_KEY = "zimagriai.offline.queue.v2";
@@ -263,28 +264,37 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-stone-950 text-white p-6">
-        <Loader2 className="h-10 w-10 animate-spin text-emerald-500 mb-4" />
-        <h2 className="font-display text-xl font-bold">Initializing ZimAgriAI Engine...</h2>
-        <p className="mt-2 text-xs text-stone-400 font-mono">
-          Loading 13,600 pilot observations & fitting Empirical Bayes shrinkage model
-        </p>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#09110d] text-[#f4f7f5] p-6 selection:bg-[#34d399] selection:text-[#09110d]">
+        <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-8 max-w-md w-full text-center space-y-4">
+          <Loader2 className="h-8 w-8 animate-spin text-[#34d399] mx-auto" />
+          <div>
+            <div className="font-mono text-xs uppercase tracking-widest text-[#34d399]">
+              SYSTEM INITIALIZATION // BOOTSTRAP
+            </div>
+            <h2 className="font-display text-lg font-bold text-[#f4f7f5] mt-1">
+              Initializing ZimAgriAI National Engine
+            </h2>
+          </div>
+          <p className="text-xs text-[#8ea396] font-mono leading-relaxed">
+            Calibrating 13,600 pilot observations, verifying empirical Bayes shrinkage matrices, and mounting telemetry nodes...
+          </p>
+        </div>
       </div>
     );
   }
 
   if (loadError) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-stone-950 text-white p-6">
-        <div className="max-w-md rounded-xl border border-red-500/40 bg-red-950/20 p-6 text-center">
-          <AlertCircle className="mx-auto h-10 w-10 text-red-400 mb-3" />
-          <h2 className="font-display text-lg font-bold text-white">System Boot Error</h2>
-          <p className="mt-2 text-xs text-red-300">{loadError}</p>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#09110d] text-[#f4f7f5] p-6 selection:bg-[#34d399] selection:text-[#09110d]">
+        <div className="max-w-md w-full rounded border border-[#7f1d1d] bg-[#1a0c0c] p-6 text-center space-y-3">
+          <AlertCircle className="mx-auto h-8 w-8 text-[#f87171]" />
+          <h2 className="font-display text-base font-bold text-[#fef2f2]">System Telemetry Boot Failure</h2>
+          <p className="text-xs text-[#fca5a5] font-mono">{loadError}</p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-500"
+            className="mt-2 rounded border border-[#991b1b] bg-[#b91c1c] px-4 py-2 font-mono text-xs font-semibold text-white hover:bg-[#dc2626]"
           >
-            Retry Boot
+            RETRY BOOTSTRAP
           </button>
         </div>
       </div>
@@ -292,7 +302,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-[#09110d] text-[#f4f7f5] flex flex-col justify-between selection:bg-[#34d399] selection:text-[#09110d]">
       <div>
         {/* Hero Header */}
         <Header
@@ -303,20 +313,29 @@ export default function App() {
           isOnline={isOnline}
           dbStatus={dbStatus}
           workerStatus={workerStatus}
-          onNavigate={(sec) => setActiveTab(sec)}
+          onNavigate={(sec) => {
+            setActiveTab(sec);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
         />
 
         {/* Sticky Nav Bar */}
         <Navigation
           activeTab={activeTab}
-          onTabChange={(tab) => setActiveTab(tab)}
+          onTabChange={(tab) => {
+            setActiveTab(tab);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           pendingCount={offlineQueue.length}
         />
 
         {/* Main Tab Content */}
         <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {activeTab === "overview" && (
-            <OverviewSection onNavigate={(tab) => setActiveTab(tab)} />
+            <OverviewSection onNavigate={(tab) => {
+              setActiveTab(tab);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }} />
           )}
 
           {activeTab === "signals" && <SignalsSection />}
@@ -344,6 +363,8 @@ export default function App() {
             />
           )}
 
+          {activeTab === "exchange" && <CommodityExchangeSection />}
+
           {activeTab === "advisor" && (
             <AIAdvisorSection
               weatherData={weatherData}
@@ -356,23 +377,33 @@ export default function App() {
         </main>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-stone-900 bg-stone-950/80 px-4 py-6 sm:px-6 lg:px-8 text-xs text-stone-500">
-        <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <span className="font-bold text-stone-400">ZimAgriAI Platform</span> • Early Production MVP v1.0.0
-            <span className="block mt-0.5 text-stone-600">
-              The baseline yield model is a validated empirical Bayes research ensemble. National policy deployment
-              requires continuous calibration against verified field harvests.
-            </span>
+      {/* Institutional Footer */}
+      <footer className="border-t border-[#1b2b22] bg-[#0c1410] px-4 py-6 sm:px-6 lg:px-8 text-xs text-[#6e8577]">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+              <span className="font-bold text-[#f4f7f5]">Zimbabwe-first AI systems platform for Agriculture</span>
+              <span className="text-[#32493d]">|</span>
+              <span className="text-[#34d399]">15-SIGNAL MULTI-SENSOR FABRIC</span>
+              <span className="text-[#32493d]">|</span>
+              <span className="text-[#6e8577]">ZMX / VFEX DERIVATIVES</span>
+            </div>
+            
+            {/* User Requested Pitch Disclaimer */}
+            <div className="rounded border border-[#2d3a24] bg-[#141b11] px-2.5 py-1 text-[11px] text-[#facc15] font-mono inline-block">
+              Notice: Independent research prototype, not an official Ministry portal
+            </div>
+
+            <p className="text-[11px] text-[#6e8577] max-w-2xl leading-relaxed">
+              Empirical Bayes shrinkage baseline model cross-referenced against multi-spectral satellite reflectance (Sentinel-2 MSI / Landsat-9), 15-signal telemetry, and NASA POWER ground meteorological observations.
+            </p>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px] text-stone-400 font-mono">
-            <span>NASA POWER Live</span>
-            <span>•</span>
-            <span>Sentinel/Landsat Provider Ready</span>
-            <span>•</span>
-            <span>Empirical Bayes</span>
+          <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] text-[#8ea396]">
+            <span className="rounded border border-[#1b2b22] bg-[#09110d] px-2 py-1">NASA POWER LIVE</span>
+            <span className="rounded border border-[#1b2b22] bg-[#09110d] px-2 py-1">15-SIGNAL TELEMETRY</span>
+            <span className="rounded border border-[#1b2b22] bg-[#09110d] px-2 py-1">ZMX & VFEX FLOOR</span>
+            <span className="rounded border border-[#1b2b22] bg-[#09110d] px-2 py-1">EMPIRICAL BAYES</span>
           </div>
         </div>
       </footer>

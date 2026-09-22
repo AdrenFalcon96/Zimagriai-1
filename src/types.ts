@@ -63,6 +63,12 @@ export interface SignalItem {
   revisit?: string;
   description: string;
   agronomicUse: string;
+  currentValue?: string;
+  baselineValue?: string;
+  anomaly?: string;
+  anomalyPositive?: boolean;
+  unit?: string;
+  sparklineData?: number[];
 }
 
 export interface Observation {
@@ -152,4 +158,94 @@ export interface AdvisorMessage {
   content: string;
   timestamp: string;
   suggestedAction?: string;
+}
+
+// -------------------------------------------------------------
+// Commodity Exchange, Derivatives & Warehouse Receipt System
+// Mirroring ZMX, VFEX, FINSEC, and Minister Prof. Mthuli Ncube's initiative
+// -------------------------------------------------------------
+
+export type ExchangeVenue = "ZMX" | "VFEX" | "FINSEC";
+export type CommodityInstrumentType = "spot" | "future" | "put_option" | "call_option" | "weather_swap";
+
+export interface CommodityTicker {
+  symbol: string;
+  name: string;
+  venue: ExchangeVenue;
+  type: CommodityInstrumentType;
+  crop: string;
+  contractMonth?: string;
+  strikePriceUSD?: number;
+  spotPriceUSD: number;
+  spotPriceZiG: number;
+  change24hPct: number;
+  volume24hMT: number;
+  openInterestMT?: number;
+  high24hUSD: number;
+  low24hUSD: number;
+  gradingStandard: string;
+  lotSizeMT: number;
+  marginRequirementPct?: number;
+  underlyingMaturity?: string;
+}
+
+export interface OrderBookEntry {
+  priceUSD: number;
+  quantityMT: number;
+  ordersCount: number;
+}
+
+export interface CommodityOrderBook {
+  symbol: string;
+  bids: OrderBookEntry[];
+  asks: OrderBookEntry[];
+  lastTradePriceUSD: number;
+  lastTradeTime: string;
+  spreadUSD: number;
+}
+
+export interface CertifiedWarehouse {
+  id: string;
+  name: string;
+  operator: string;
+  province: string;
+  district: string;
+  capacityMT: number;
+  currentStockMT: number;
+  utilizationPct: number;
+  acceptedCrops: string[];
+  accreditationBody: string;
+  securityFeatures: string[];
+  lat: number;
+  lon: number;
+}
+
+export interface ElectronicWarehouseReceipt {
+  receiptId: string;
+  depositorRef: string;
+  depositorType: "Smallholder Cooperative" | "Commercial Estate" | "Pfumvudza Cluster";
+  warehouseId: string;
+  warehouseName: string;
+  crop: string;
+  quantityMT: number;
+  grade: "Grade A" | "Grade B" | "Grade C";
+  moisturePct: number;
+  aflatoxinPpb: number;
+  issuanceDate: string;
+  expiryDate: string;
+  status: "unencumbered" | "pledged_collateral" | "listed_exchange" | "delivery_warrant_issued";
+  pledgedBank?: string;
+  collateralLTVPct?: number;
+  assessedValueUSD: number;
+  finsecCsdNumber: string;
+}
+
+export interface HistoricalPolicyMilestone {
+  era: string;
+  year: string;
+  title: string;
+  leadArchitect: string;
+  description: string;
+  outcome: string;
+  riskWarning: string;
 }

@@ -1,6 +1,6 @@
 {
   "name": "ZimAgriAI",
-  "description": "Zimbabwe-first Agricultural AI Systems Platform connecting farmer observations, remote sensing, weather, confidence scoring, production estimation, and policy intelligence.",
+  "description": "Zimbabwe-first AI systems platform for Agriculture. Anchored on the AGRITEX Data Capture Incentive Policy, 15-signal AI remote sensing with Bayes shrinkage, and Prof. Mthuli Ncube's ZMX/VFEX agricultural commodity derivatives market.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

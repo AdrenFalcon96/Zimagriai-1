@@ -95,76 +95,85 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
   }, [trace, selectedFarmerId]);
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-6" id="section-analysis">
       {/* Section Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 pb-4">
-        <div>
-          <span className="text-xs font-bold tracking-wider text-emerald-400 uppercase">
-            03 / Production Intelligence & Estimator
+      <div className="border-b border-[#1b2b22] pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-xs font-bold text-[#34d399] tracking-wider uppercase">
+              AGRI-SEC-03 // STATISTICAL INFERENCE & BAYES ESTIMATOR
+            </span>
+            <span className="text-[#32493d]">•</span>
+            <span className="font-mono text-xs text-[#799083]">Hierarchical Empirical Shrinkage</span>
+          </div>
+
+          <span className="font-mono text-xs text-[#799083] rounded border border-[#1b2b22] bg-[#0f1914] px-2.5 py-1">
+            Prior Specification: Beta-Binomial & Gaussian Priors
           </span>
-          <h2 className="font-display mt-1 text-2xl font-bold text-white sm:text-3xl">
-            Confidence-Weighted Production View
-          </h2>
-          <p className="mt-1 text-sm text-stone-400">
-            Empirical Bayes hierarchical shrinkage dampens noisy farmer claims towards regional
-            group means, producing defensible production figures for national policy and markets.
-          </p>
         </div>
+
+        <h2 className="font-display mt-2 text-2xl font-bold tracking-tight text-[#f4f7f5] sm:text-3xl">
+          National Food Balance & Yield Shrinkage Engine
+        </h2>
+        <p className="mt-1 text-sm text-[#9ab0a3] max-w-3xl leading-relaxed">
+          Empirical Bayes shrinkage mathematically resolves smallholder self-reporting variance.
+          Observations corroborated by satellite telemetry retain high weighting, while unverified or extreme deviations are pulled toward district and agro-ecological prior distributions.
+        </p>
       </div>
 
       {/* District Comparison & Table Grid */}
       <div className="grid gap-6 lg:grid-cols-12">
         {/* District Table */}
-        <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-5 lg:col-span-7">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-800">
-            <h3 className="font-display text-base font-bold text-white flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-emerald-400" />
-              District Empirical Bayes Aggregation
+        <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-5 lg:col-span-7">
+          <div className="flex items-center justify-between pb-3 border-b border-[#17251e]">
+            <h3 className="font-display text-sm font-bold text-[#f4f7f5] flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-[#34d399]" />
+              District Administrative Aggregates
             </h3>
-            <span className="text-xs text-stone-500">{panel.length.toLocaleString()} pilot records</span>
+            <span className="font-mono text-xs text-[#6e8577]">{panel.length.toLocaleString()} pilot records</span>
           </div>
 
           <div className="mt-4 overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-stone-800 text-stone-400 font-semibold">
-                  <th className="py-2.5 px-2">District</th>
-                  <th className="py-2.5 px-2">Natural Region</th>
-                  <th className="py-2.5 px-2 text-right">Records</th>
-                  <th className="py-2.5 px-2 text-right">Mean Conf.</th>
-                  <th className="py-2.5 px-2 text-right">Self-Report</th>
-                  <th className="py-2.5 px-2 text-right text-emerald-400">Weighted</th>
-                  <th className="py-2.5 px-2 text-right text-stone-400">Shrinkage</th>
+                <tr className="border-b border-[#1b2b22] bg-[#0f1914] font-mono text-[11px] text-[#8ea396] uppercase tracking-wider">
+                  <th className="py-2 px-2.5">District</th>
+                  <th className="py-2 px-2.5">Agro-Region</th>
+                  <th className="py-2 px-2.5 text-right">Records</th>
+                  <th className="py-2 px-2.5 text-right">Mean Corrob.</th>
+                  <th className="py-2 px-2.5 text-right">Raw Claim</th>
+                  <th className="py-2 px-2.5 text-right text-[#34d399]">Shrunk Tonnage</th>
+                  <th className="py-2 px-2.5 text-right text-[#8ea396]">Delta Adjustment</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-800/60">
+              <tbody className="divide-y divide-[#17251e] text-[#c9d6cf]">
                 {districtSummaries.map((row) => {
                   const diff = row.shrunkProduction - row.rawProduction;
                   return (
-                    <tr key={row.district} className="hover:bg-stone-800/30 transition-colors">
-                      <td className="py-3 px-2 font-medium text-white">{row.district}</td>
-                      <td className="py-3 px-2 text-stone-400">{row.primaryNR}</td>
-                      <td className="py-3 px-2 text-right font-mono text-stone-300">
+                    <tr key={row.district} className="hover:bg-[#111e17] transition">
+                      <td className="py-3 px-2.5 font-medium text-[#f4f7f5]">{row.district}</td>
+                      <td className="py-3 px-2.5 font-mono text-[#8fa397]">{row.primaryNR}</td>
+                      <td className="py-3 px-2.5 text-right font-mono text-[#a1b8ab]">
                         {row.recordsCount.toLocaleString()}
                       </td>
-                      <td className="py-3 px-2 text-right font-mono">
+                      <td className="py-3 px-2.5 text-right font-mono">
                         <span
-                          className={`rounded px-1.5 py-0.5 text-[11px] font-bold ${
+                          className={`rounded px-1.5 py-0.5 text-[11px] font-bold border ${
                             row.meanConfidence >= 0.75
-                              ? "bg-emerald-950 text-emerald-400"
-                              : "bg-amber-950 text-amber-400"
+                              ? "bg-[#0d281a] text-[#4ade80] border-[#1e4832]"
+                              : "bg-[#281b0a] text-[#fbbf24] border-[#422c10]"
                           }`}
                         >
                           {fmt(row.meanConfidence, 2)}
                         </span>
                       </td>
-                      <td className="py-3 px-2 text-right font-mono text-stone-300">
+                      <td className="py-3 px-2.5 text-right font-mono text-[#8fa397]">
                         {fmt(row.rawProduction)} t
                       </td>
-                      <td className="py-3 px-2 text-right font-mono font-bold text-emerald-400">
+                      <td className="py-3 px-2.5 text-right font-mono font-bold text-[#34d399]">
                         {fmt(row.shrunkProduction)} t
                       </td>
-                      <td className="py-3 px-2 text-right font-mono text-xs text-stone-400">
+                      <td className="py-3 px-2.5 text-right font-mono text-xs text-[#71877b]">
                         {diff > 0 ? `+${fmt(diff)} t` : `${fmt(diff)} t`}
                       </td>
                     </tr>
@@ -174,43 +183,41 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
             </table>
           </div>
 
-          <p className="mt-4 text-[11px] text-stone-400 leading-relaxed border-t border-stone-800/80 pt-3">
-            <span className="font-semibold text-stone-300">Interpretation:</span> When self-reported yields
-            have low remote-sensing corroboration, the Bayes shrinkage formula pulls the estimated tonnage
-            towards the regional mean. High-confidence observations maintain their self-reported weight.
+          <p className="mt-4 text-[11px] text-[#71877b] leading-relaxed border-t border-[#17251e] pt-3">
+            <span className="font-semibold text-[#a1b8ab]">Audit Mandate:</span> Observations in districts with lower remote-sensing corroboration indices are pulled automatically toward statutory regional yield ceilings, preventing fictitious procurement claims at Grain Marketing Board collection points.
           </p>
         </div>
 
         {/* Visual Bar Chart */}
-        <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-5 lg:col-span-5 flex flex-col justify-between">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-800">
-            <h3 className="font-display text-base font-bold text-white">
-              Self-Report vs Weighted (t)
+        <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-5 lg:col-span-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between pb-3 border-b border-[#17251e]">
+            <h3 className="font-display text-sm font-bold text-[#f4f7f5]">
+              Discrepancy Calibration (Raw vs Shrunk)
             </h3>
-            <span className="text-xs text-stone-500">Tonnage delta</span>
+            <span className="font-mono text-xs text-[#6e8577]">Metric Tonnes</span>
           </div>
 
           <div className="h-64 w-full mt-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#292524" vertical={false} />
-                <XAxis dataKey="name" stroke="#78716c" fontSize={12} tickLine={false} />
-                <YAxis stroke="#78716c" fontSize={11} tickLine={false} />
+                <CartesianGrid strokeDasharray="2 2" stroke="#1b2b22" vertical={false} />
+                <XAxis dataKey="name" stroke="#6e8577" fontSize={11} tickLine={false} />
+                <YAxis stroke="#6e8577" fontSize={11} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#1c1917", borderColor: "#44403c", borderRadius: 8, fontSize: 12 }}
-                  itemStyle={{ color: "#e7e5e4" }}
+                  contentStyle={{ backgroundColor: "#0c1410", borderColor: "#1b2b22", borderRadius: 4, fontSize: 11 }}
+                  itemStyle={{ color: "#e4ede7" }}
                 />
                 <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} />
-                <Bar dataKey="Self-Reported (t)" fill="#78716c" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="Confidence-Weighted (t)" fill="#10b981" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Self-Reported (t)" fill="#395244" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="Confidence-Weighted (t)" fill="#16a34a" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-3 flex items-center justify-between text-xs text-stone-400 bg-stone-950/60 rounded-lg p-2.5">
-            <span>Overall Shrunk Production:</span>
-            <span className="font-mono font-bold text-emerald-400">
-              {fmt(districtSummaries.reduce((s, r) => s + r.shrunkProduction, 0))} metric tonnes
+          <div className="mt-3 flex items-center justify-between text-xs text-[#8fa397] bg-[#09110d] rounded border border-[#17251e] p-2.5">
+            <span>Aggregated Shrunk Yield Total:</span>
+            <span className="font-mono font-bold text-[#34d399]">
+              {fmt(districtSummaries.reduce((s, r) => s + r.shrunkProduction, 0))} MT
             </span>
           </div>
         </div>
@@ -219,26 +226,26 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
       {/* Yield Estimator & Farmer Lookup Section */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Yield Estimator Sandbox */}
-        <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-6 flex flex-col justify-between">
+        <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-start justify-between">
+            <div className="flex items-start justify-between border-b border-[#17251e] pb-3">
               <div>
-                <h3 className="font-display text-lg font-bold text-white flex items-center gap-2">
-                  <Calculator className="h-5 w-5 text-emerald-400" />
-                  Yield Estimator Sandbox
+                <h3 className="font-display text-base font-bold text-[#f4f7f5] flex items-center gap-2">
+                  <Calculator className="h-4 w-4 text-[#34d399]" />
+                  Inference Estimator Workbench
                 </h3>
-                <p className="mt-1 text-xs text-stone-400">
-                  Evaluates the trained 25-tree gradient-boosted ensemble directly in-browser.
+                <p className="mt-1 text-xs text-[#8ca094]">
+                  Simulates the 25-tree gradient-boosted ensemble across agro-ecological variables.
                 </p>
               </div>
-              <span className="rounded bg-stone-800 px-2 py-0.5 text-[10px] font-mono text-emerald-400">
+              <span className="rounded border border-[#1e4832] bg-[#0f281b] px-2 py-0.5 text-[10px] font-mono text-[#34d399]">
                 25-Tree GBDT
               </span>
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-4 text-xs">
               <label className="space-y-1">
-                <span className="font-semibold text-stone-300">District</span>
+                <span className="font-semibold text-[#c9d6cf] font-mono text-[11px]">DISTRICT JURISDICTION</span>
                 <select
                   value={estDistrict}
                   onChange={(e) => {
@@ -247,7 +254,7 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
                     if (d === "Murehwa") setEstNR("NR II");
                     if (d === "Zaka" || d === "Umguza") setEstNR("NR IV");
                   }}
-                  className="w-full rounded-lg border border-stone-700 bg-stone-800 px-3 py-2 text-stone-200 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded border border-[#1b2b22] bg-[#0f1914] px-3 py-2 text-[#c9d6cf] focus:border-[#34d399] focus:outline-none"
                 >
                   <option value="Murehwa">Murehwa (NR II)</option>
                   <option value="Zaka">Zaka (NR IV)</option>
@@ -256,11 +263,11 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
               </label>
 
               <label className="space-y-1">
-                <span className="font-semibold text-stone-300">Natural Region</span>
+                <span className="font-semibold text-[#c9d6cf] font-mono text-[11px]">AGRO-ECOLOGICAL ZONE</span>
                 <select
                   value={estNR}
                   onChange={(e) => setEstNR(e.target.value)}
-                  className="w-full rounded-lg border border-stone-700 bg-stone-800 px-3 py-2 text-stone-200 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded border border-[#1b2b22] bg-[#0f1914] px-3 py-2 text-[#c9d6cf] focus:border-[#34d399] focus:outline-none"
                 >
                   <option value="NR II">NR II (Intensive)</option>
                   <option value="NR III">NR III (Semi-Intensive)</option>
@@ -270,21 +277,21 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
               </label>
 
               <label className="space-y-1">
-                <span className="font-semibold text-stone-300">Planted Area (ha)</span>
+                <span className="font-semibold text-[#c9d6cf] font-mono text-[11px]">PLANTED CADASTRE (HA)</span>
                 <input
                   type="number"
                   min="0.1"
                   step="0.1"
                   value={estArea}
                   onChange={(e) => setEstArea(Math.max(0.1, Number(e.target.value)))}
-                  className="w-full rounded-lg border border-stone-700 bg-stone-800 px-3 py-2 text-stone-200 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded border border-[#1b2b22] bg-[#0f1914] px-3 py-2 text-[#c9d6cf] focus:border-[#34d399] focus:outline-none"
                 />
               </label>
 
               <label className="space-y-1">
                 <div className="flex justify-between">
-                  <span className="font-semibold text-stone-300">Signal Confidence</span>
-                  <span className="font-mono text-emerald-400">{estConfidence.toFixed(2)}</span>
+                  <span className="font-semibold text-[#c9d6cf] font-mono text-[11px]">CORROBORATION INDEX</span>
+                  <span className="font-mono text-[#34d399]">{estConfidence.toFixed(2)}</span>
                 </div>
                 <input
                   type="range"
@@ -293,66 +300,66 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
                   step="0.05"
                   value={estConfidence}
                   onChange={(e) => setEstConfidence(Number(e.target.value))}
-                  className="w-full accent-emerald-500"
+                  className="w-full accent-[#22c55e]"
                 />
               </label>
             </div>
           </div>
 
           {/* Model Output Cards */}
-          <div className="mt-6 rounded-xl border border-stone-800 bg-stone-950 p-4">
-            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block mb-2">
-              Model Inference Output
+          <div className="mt-6 rounded border border-[#1b2b22] bg-[#09110d] p-4">
+            <span className="text-[10px] font-mono font-bold text-[#6e8577] uppercase tracking-wider block mb-2">
+              Statutory Inference Output
             </span>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <span className="text-2xl font-extrabold text-emerald-400 font-display">
+                <span className="text-2xl font-bold text-[#34d399] font-display">
                   {prediction.yieldVal.toFixed(2)}
                 </span>
-                <span className="text-xs text-stone-400 ml-1">t/ha</span>
-                <span className="block text-[11px] text-stone-500 mt-0.5">predicted crop yield</span>
+                <span className="text-xs text-[#8ca094] ml-1">t/ha</span>
+                <span className="block text-[11px] text-[#60776a] mt-0.5">calibrated crop yield</span>
               </div>
               <div>
-                <span className="text-2xl font-extrabold text-white font-display">
+                <span className="text-2xl font-bold text-[#f4f7f5] font-display">
                   {prediction.prodVal.toFixed(2)}
                 </span>
-                <span className="text-xs text-stone-400 ml-1">tonnes</span>
-                <span className="block text-[11px] text-stone-500 mt-0.5">total estimated production</span>
+                <span className="text-xs text-[#8ca094] ml-1">tonnes</span>
+                <span className="block text-[11px] text-[#60776a] mt-0.5">estimated production tonnage</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Farmer Evidence Lookup */}
-        <div className="rounded-xl border border-stone-800 bg-stone-900/60 p-6 flex flex-col justify-between">
+        <div className="rounded border border-[#1b2b22] bg-[#0c1410] p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-start justify-between">
+            <div className="flex items-start justify-between border-b border-[#17251e] pb-3">
               <div>
-                <h3 className="font-display text-lg font-bold text-white flex items-center gap-2">
-                  <UserCheck className="h-5 w-5 text-teal-400" />
-                  Farmer Evidence Lookup
+                <h3 className="font-display text-base font-bold text-[#f4f7f5] flex items-center gap-2">
+                  <UserCheck className="h-4 w-4 text-[#38bdf8]" />
+                  Smallholder Evidence Dossier
                 </h3>
-                <p className="mt-1 text-xs text-stone-400">
-                  Inspect self-report corroboration and 90% credible intervals for individual smallholders.
+                <p className="mt-1 text-xs text-[#8ca094]">
+                  Examine ground-truth corroboration and 90% credible intervals for registered producers.
                 </p>
               </div>
-              <span className="rounded bg-stone-800 px-2 py-0.5 text-[10px] font-mono text-teal-300">
-                Pilot Cohort
+              <span className="rounded border border-[#153e54] bg-[#0c2432] px-2 py-0.5 text-[10px] font-mono text-[#7dd3fc]">
+                Cadastre Register
               </span>
             </div>
 
             <div className="mt-5">
-              <label className="block text-xs font-semibold text-stone-300 mb-1.5">
-                Select Farmer Reference ID:
+              <label className="block text-xs font-mono font-semibold text-[#8fa397] mb-1.5 uppercase">
+                Select Smallholder Cadastre ID:
               </label>
               <select
                 value={selectedFarmerId}
                 onChange={(e) => setSelectedFarmerId(e.target.value)}
-                className="w-full rounded-lg border border-stone-700 bg-stone-800 px-3 py-2 text-xs text-stone-200 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded border border-[#1b2b22] bg-[#0f1914] px-3 py-2 font-mono text-xs text-[#c9d6cf] focus:border-[#34d399] focus:outline-none"
               >
                 {panel.slice(0, 300).map((r) => (
                   <option key={r.farmer_id} value={r.farmer_id}>
-                    {r.farmer_id} ({r.district} • {r.yield_t_ha.toFixed(1)} t/ha • Conf {r.confidence.toFixed(2)})
+                    {r.farmer_id} // {r.district} • {r.yield_t_ha.toFixed(1)} t/ha • Conf {r.confidence.toFixed(2)}
                   </option>
                 ))}
               </select>
@@ -361,53 +368,53 @@ export const AnalysisSection: React.FC<AnalysisProps> = ({ panel, trace, model }
 
           {/* Farmer Output Result */}
           {farmerResult && (
-            <div className="mt-6 rounded-xl border border-stone-800 bg-stone-950 p-4 space-y-4">
-              <div className="flex items-center justify-between text-xs border-b border-stone-800 pb-2">
-                <span className="font-bold text-white font-mono">{farmerResult.record.farmer_id}</span>
-                <span className="text-stone-400">
+            <div className="mt-6 rounded border border-[#1b2b22] bg-[#09110d] p-4 space-y-4">
+              <div className="flex items-center justify-between text-xs border-b border-[#17251e] pb-2">
+                <span className="font-bold text-[#f4f7f5] font-mono">{farmerResult.record.farmer_id}</span>
+                <span className="text-[#8fa397] font-mono text-[11px]">
                   {farmerResult.record.district} • {farmerResult.record.nr} • Area: {farmerResult.record.area_ha.toFixed(2)} ha
                 </span>
               </div>
 
               <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="rounded-lg bg-stone-900 p-2.5 border border-stone-800">
-                  <span className="block text-[10px] text-stone-400 uppercase font-semibold">Self-Report</span>
-                  <span className="font-display text-lg font-bold text-stone-300">
+                <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-2.5">
+                  <span className="block text-[10px] text-[#71877b] uppercase font-mono font-semibold">Self-Report</span>
+                  <span className="font-display text-base font-bold text-[#f4f7f5]">
                     {farmerResult.record.est_production_t.toFixed(2)} t
                   </span>
-                  <span className="block text-[10px] text-stone-500 mt-0.5">
+                  <span className="block text-[10px] text-[#60776a] font-mono mt-0.5">
                     {farmerResult.record.yield_t_ha.toFixed(2)} t/ha
                   </span>
                 </div>
 
-                <div className="rounded-lg bg-emerald-950/40 p-2.5 border border-emerald-800/40">
-                  <span className="block text-[10px] text-emerald-400 uppercase font-semibold">Bayes Shrunk</span>
-                  <span className="font-display text-lg font-bold text-emerald-400">
+                <div className="rounded border border-[#1e4832] bg-[#0f281b] p-2.5">
+                  <span className="block text-[10px] text-[#34d399] uppercase font-mono font-semibold">Bayes Shrunk</span>
+                  <span className="font-display text-base font-bold text-[#34d399]">
                     {farmerResult.record.shrunk_estimate.toFixed(2)} t
                   </span>
-                  <span className="block text-[10px] text-emerald-500/80 mt-0.5">
-                    Conf: {farmerResult.record.confidence.toFixed(2)}
+                  <span className="block text-[10px] text-[#4ade80] font-mono mt-0.5">
+                    Index: {farmerResult.record.confidence.toFixed(2)}
                   </span>
                 </div>
 
-                <div className="rounded-lg bg-stone-900 p-2.5 border border-stone-800">
-                  <span className="block text-[10px] text-stone-400 uppercase font-semibold">90% Credible Interval</span>
-                  <span className="font-display text-sm font-bold text-teal-300 mt-1 block">
+                <div className="rounded border border-[#1b2b22] bg-[#0f1914] p-2.5">
+                  <span className="block text-[10px] text-[#71877b] uppercase font-mono font-semibold">90% Credible Range</span>
+                  <span className="font-display text-xs font-bold text-[#7dd3fc] mt-1 block font-mono">
                     {farmerResult.interval[0].toFixed(2)} – {farmerResult.interval[1].toFixed(2)} t
                   </span>
-                  <span className="block text-[10px] text-stone-500 mt-0.5">Empirical uncertainty</span>
+                  <span className="block text-[10px] text-[#60776a] mt-0.5">Uncertainty Bound</span>
                 </div>
               </div>
 
               {/* Range representation */}
-              <div className="space-y-1 text-xs">
-                <div className="flex justify-between text-[11px] text-stone-400">
-                  <span>Lower Bound: {farmerResult.interval[0].toFixed(2)} t</span>
-                  <span>Estimate: {farmerResult.record.shrunk_estimate.toFixed(2)} t</span>
-                  <span>Upper Bound: {farmerResult.interval[1].toFixed(2)} t</span>
+              <div className="space-y-1.5 text-xs">
+                <div className="flex justify-between font-mono text-[11px] text-[#71877b]">
+                  <span>Lower: {farmerResult.interval[0].toFixed(2)} t</span>
+                  <span className="text-[#34d399]">Posterior: {farmerResult.record.shrunk_estimate.toFixed(2)} t</span>
+                  <span>Upper: {farmerResult.interval[1].toFixed(2)} t</span>
                 </div>
-                <div className="h-2 w-full rounded-full bg-stone-800 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-teal-500/50 via-emerald-500 to-teal-500/50 rounded-full" />
+                <div className="h-1.5 w-full rounded bg-[#17251e] relative overflow-hidden">
+                  <div className="absolute top-0 bottom-0 left-[20%] right-[20%] bg-[#15803d] rounded" />
                 </div>
               </div>
             </div>
